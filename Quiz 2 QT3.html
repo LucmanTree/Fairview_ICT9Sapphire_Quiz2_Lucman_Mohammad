@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Ticketing Center</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: silver;
+       
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .ticket-box {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .ticket-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .ticket-item {
+            background: #ffffff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #discountSection {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Ticketing Center</a>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <h1 class="mt-4">Welcome to the Online Ticketing Center</h1>
+        <p>Book your tickets easily and securely with our system.</p>
+
+        <button class="btn btn-primary mt-3" onclick="toggleTickets()">View Available Tickets</button>
+
+        <div id="ticketBox" class="ticket-box mt-4">
+            <h3>Available Tickets</h3>
+
+         
+            <div id="discountSection">
+                <label for="userType" class="form-label">Discount</label>
+                <select id="userType" class="form-select">
+                    <option value="regular">Regular</option>
+                    <option value="student">Student</option>
+                    <option value="pwd">PWD </option>
+                </select>
+            </div>
+
+         
+            <ul class="ticket-list">
+                <li class="ticket-item">
+                    <span>🎤 Rob Deniel Concert - 20,000 php</span>
+                    <button class="btn btn-success" onclick="purchaseTicket('Concert A', 20000)">Buy</button>
+                </li>
+                <li class="ticket-item">
+                    <span>⚽ UAAP UP Maroons vs Adamson Eagles basketball - 40,000 php</span>
+                    <button class="btn btn-success" onclick="purchaseTicket('Sports Game', 40000)">Buy</button>
+                </li>
+                <li class="ticket-item">
+                    <span>🎭 Theater Play - 500 php</span>
+                    <button class="btn btn-success" onclick="purchaseTicket('Theater Play', 500)">Buy</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <script>
+    
+        function toggleTickets() {
+            let ticketBox = document.getElementById("ticketBox");
+            ticketBox.style.display = ticketBox.style.display === "none" ? "block" : "none";
+        }
+
+    
+     function purchaseTicket(eventName, originalPrice) {
+    let userType = document.getElementById("userType").value;
+    
+    let discountRates = {
+        "student": 0.2,
+        "pwd": 0.2,
+        "regular": 0
+    };
+
+  
+    let discount = originalPrice * (discountRates[userType] || 0);
+    let finalPrice = originalPrice - discount;
+
+
+    let confirmation = confirm(`Do you want to purchase a ticket for ${eventName}?\nOriginal Price: $${originalPrice}\nDiscount: -$${discount.toFixed(2)}\nFinal Price: $${finalPrice.toFixed(2)}`);
+
+    confirmation && alert(`Ticket purchased for ${eventName} at $${finalPrice.toFixed(2)}!`) || alert("Purchase canceled.");
+}
+
+    </script>
+
+
+</body>
+</html>
+
